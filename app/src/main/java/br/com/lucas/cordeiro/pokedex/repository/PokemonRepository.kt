@@ -5,7 +5,9 @@ import br.com.lucas.cordeiro.pokedex.database.mapper.toDAO
 import br.com.lucas.cordeiro.pokedex.database.mapper.toModel
 import br.com.lucas.cordeiro.pokedex.model.Pokemon
 import br.com.lucas.cordeiro.pokedex.network.service.PokemonService
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.withContext
 
 class PokemonRepository(
     private val pokemonService: PokemonService,
@@ -14,11 +16,10 @@ class PokemonRepository(
     suspend fun doGetPokemonsFromNetwork() = pokemonService.doGetPokemons().results
 
     suspend fun doGetPokemons() = flow{
-        doRefreshPokemonsData()
         emitAll(pokemonDao.doGetAll(0, 30).map { it.map { it.toModel() } })
     }
 
-    private suspend fun doRefreshPokemonsData(){
+    suspend fun doRefreshPokemonsData(){
         val pokemons = doGetPokemonsFromNetwork()
         pokemons?.let {
             pokemonDao.doInsertAll(it.map { it.toDAO() })

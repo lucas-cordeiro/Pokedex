@@ -11,5 +11,6 @@ data class PokemonEntity(
     @ColumnInfo(name = "name")
     var name: String? = null,
     var url: String? = null,
-    var imageUrl: String? = null
+    var imageUrl: String? = null,
+    var types: String? = null
 )

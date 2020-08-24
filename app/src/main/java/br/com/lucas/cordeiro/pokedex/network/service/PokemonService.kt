@@ -19,13 +19,16 @@ class PokemonService(private val appHttpClient: AppHttpClient) {
             if(it.id==null){
                 it.id = it.url?.toUri()?.lastPathSegment?.toInt()
             }
-            it.imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${it.id}.svg"
+            val pokemon = doGetPokemonById(it.id?:0)
+            it.types = pokemon.types
+            KLog.log("Id: ${it.id} Types: ${it.types}")
+            it.imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${it.id}.png"
         }
         return response
     }
 
     suspend fun doGetPokemonById(pokemonId: Int) = appHttpClient.httpClient.get<Pokemon>("$pokemonBasePath/$pokemonId").apply {
-        imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
+        imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png"
     }
 
     companion object{

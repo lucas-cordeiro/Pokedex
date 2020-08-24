@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Pokedex</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Error-->
+    <string name="image_not_load_title">Error</string>
+    <string name="image_not_load_subtitle">Não foi possível carregar a imagem, verifique sua conexão e tente novamente</string>
+    <string name="image_not_load_subtitle_small">Não foi possível carregar</string>
+    <!--Error-->
+
 </resources>

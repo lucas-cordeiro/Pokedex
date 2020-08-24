@@ -6,10 +6,8 @@ import br.com.lucas.cordeiro.pokedex.model.Pokemon
 import br.com.lucas.cordeiro.pokedex.network.error.GeneralErrorHandler
 import br.com.lucas.cordeiro.pokedex.network.error.Result
 import br.com.lucas.cordeiro.pokedex.repository.PokemonRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
+import br.com.lucas.cordeiro.pokedex.utils.KLog
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val pokemonRepository: PokemonRepository, private val generalErrorHandler: GeneralErrorHandler) : ViewModel() {
@@ -19,13 +17,17 @@ class HomeViewModel(private val pokemonRepository: PokemonRepository, private va
 
     init {
         viewModelScope.launch {
+
             pokemonRepository.doGetPokemons()
                 .catch {
+                    KLog.log("Error doGetPokemons", it)
                     _pokemons.value = Result.Error(generalErrorHandler.getError(it))
                 }
-                .collect {
+                .onEach {
                     _pokemons.value = Result.Success(it)
-                }
+                }.launchIn(this)
+
+            pokemonRepository.doRefreshPokemonsData()
         }
     }
 }
