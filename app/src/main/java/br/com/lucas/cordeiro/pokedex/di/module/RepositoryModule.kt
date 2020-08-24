@@ -4,5 +4,5 @@ import br.com.lucas.cordeiro.pokedex.repository.PokemonRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single{ PokemonRepository(get()) }
+    single{ PokemonRepository(get(), get()) }
 }

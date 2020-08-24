@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launchWhenCreated {
-            viewModel.pokemons.filter { it != null }.collect {
-                KLog.log("ImageUrl: ${it!![0].imageUrl}")
+            viewModel.pokemons.filter { !it.isNullOrEmpty() }.collect {
+                KLog.log("ImageUrl: ${it[0].imageUrl}")
             }
         }
     }
