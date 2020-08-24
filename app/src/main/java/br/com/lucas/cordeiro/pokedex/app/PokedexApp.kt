@@ -2,6 +2,8 @@ package br.com.lucas.cordeiro.pokedex.app
 
 import android.app.Application
 import br.com.lucas.cordeiro.pokedex.di.module.networkModule
+import br.com.lucas.cordeiro.pokedex.di.module.repositoryModule
+import br.com.lucas.cordeiro.pokedex.di.module.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -15,6 +17,8 @@ class PokedexApp : Application() {
     }
 
     private fun provideModules() = listOf(
-        networkModule
+        networkModule,
+        repositoryModule,
+        viewModelModule
     )
 }

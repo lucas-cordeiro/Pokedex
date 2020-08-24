@@ -15,12 +15,16 @@ import io.ktor.client.request.accept
 import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import java.util.logging.Level
+
+private val json = Json(JsonConfiguration.Stable.copy(ignoreUnknownKeys = true, encodeDefaults = false, isLenient = true))
 
 fun provideBaseHttpClientConfig() : HttpClientConfig<OkHttpConfig>{
     val config = HttpClientConfig<OkHttpConfig>()
     config.install(JsonFeature){
-        serializer = KotlinxSerializer()
+        serializer = KotlinxSerializer(json)
     }
 
     config.install(Logging){
