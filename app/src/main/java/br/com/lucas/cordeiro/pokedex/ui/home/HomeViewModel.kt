@@ -1,4 +1,4 @@
-package br.com.lucas.cordeiro.pokedex.ui.main
+package br.com.lucas.cordeiro.pokedex.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val pokemonRepository: PokemonRepository, private val generalErrorHandler: GeneralErrorHandler) : ViewModel() {
+class HomeViewModel(private val pokemonRepository: PokemonRepository, private val generalErrorHandler: GeneralErrorHandler) : ViewModel() {
     private val _pokemons = MutableStateFlow<Result<List<Pokemon>>?>(null)
     val pokemons: StateFlow<Result<List<Pokemon>>?>
         get() = _pokemons
