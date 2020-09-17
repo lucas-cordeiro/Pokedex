@@ -16,6 +16,7 @@ class HomeViewModel(private val pokemonRepository: PokemonRepository, private va
         get() = _pokemons
 
     init {
+        
         viewModelScope.launch {
 
             pokemonRepository.doGetPokemons()
